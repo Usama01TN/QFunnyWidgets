@@ -1,6 +1,6 @@
 # coding=utf-8
 """
-Entry point for the QFunnyWidgets MainWindow.
+Entry point for the QFunnyWidgets MainWindow (also the "funnywidgets-mainwindow" console script).
 """
 from os.path import dirname
 from sys import path
@@ -13,10 +13,15 @@ try:
 except:
     from mainwindow import MainWindow
 
-if __name__ == '__main__':
+
+def main():
+    """
+    Launch the MainWindow gallery.
+    :return: (int) Exit code of the Qt event loop.
+    """
     from ManyQt.QtWidgets import QApplication
     from ManyQt.QtCore import Qt
-    from sys import argv, exit
+    from sys import argv
 
     # HiDPI switches exist (and matter) on Qt 5 only; Qt 6 always scales.
     for attr in ('AA_EnableHighDpiScaling', 'AA_UseHighDpiPixmaps'):
@@ -26,4 +31,10 @@ if __name__ == '__main__':
     a.setStyle('Fusion')
     w = MainWindow()  # type: MainWindow
     w.show()
-    exit(a.exec_())
+    return a.exec_()
+
+
+if __name__ == '__main__':
+    from sys import exit
+
+    exit(main())
