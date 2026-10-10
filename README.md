@@ -1,5 +1,11 @@
 # QFunnyWidgets
 
+[![PyPI](https://img.shields.io/pypi/v/QFunnyWidgets)](https://pypi.org/project/QFunnyWidgets/)
+[![Python](https://img.shields.io/pypi/pyversions/QFunnyWidgets)](https://pypi.org/project/QFunnyWidgets/)
+[![Downloads](https://img.shields.io/pypi/dm/QFunnyWidgets)](https://pypi.org/project/QFunnyWidgets/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](https://github.com/Usama01TN/QFunnyWidgets/blob/main/LICENSE.md)
+[![Release](https://github.com/Usama01TN/QFunnyWidgets/actions/workflows/release.yml/badge.svg)](https://github.com/Usama01TN/QFunnyWidgets/actions/workflows/release.yml)
+
 **Definition.** A library of 35 custom-painted, animated Qt widgets with a sense of humour, written on top of
 [ManyQt](https://github.com/Usama01TN/ManyQt) so the same code runs on PyQt5, PyQt6, PySide6 (and the other
 bindings ManyQt supports), under Python 2.7 and Python 3.
@@ -8,15 +14,42 @@ bindings ManyQt supports), under Python 2.7 and Python 3.
 configurable `QWidget` that behaves like a normal control (signals, properties, keyboard support)
 but animates like a cartoon. Pure Python: ManyQt + one Qt binding, nothing else.
 
-![Logos](docs/logos.png)
+## Quick start:
 
-![Classics](docs/gallery.png)
-![New arrivals](docs/gallery2.png)
-![Fresh batch](docs/gallery3.png)
-![Daily drivers](docs/gallery4.png)
-![Power tools](docs/gallery5.png)
-![Finishing touches](docs/gallery6.png)
-![Little details](docs/gallery7.png)
+```bash
+pip install QFunnyWidgets[pyqt5]     # or [pyqt6], [pyside6], [pyside2]
+funnywidgets-mainwindow              # opens the gallery of all 35 widgets
+```
+
+```python
+from ManyQt.QtWidgets import QApplication, QVBoxLayout, QWidget
+from QFunnyWidgets import JellySwitchWidget, HeartLikeButtonWidget
+from sys import argv, exit
+
+app = QApplication(argv)  # type: QApplication
+window = QWidget()  # type: QWidget
+layout = QVBoxLayout(window)  # type: QVBoxLayout
+layout.addWidget(JellySwitchWidget(checked=True, toggled=lambda on: print('on' if on else 'off')))
+layout.addWidget(HeartLikeButtonWidget(count=41))
+window.show()
+exit(app.exec_())
+```
+
+![Logos](https://raw.githubusercontent.com/Usama01TN/QFunnyWidgets/main/docs/logos.png)
+
+![Classics](https://raw.githubusercontent.com/Usama01TN/QFunnyWidgets/main/docs/gallery.png)
+
+<details>
+<summary>More screenshots (6 more gallery pages)</summary>
+
+![New arrivals](https://raw.githubusercontent.com/Usama01TN/QFunnyWidgets/main/docs/gallery2.png)
+![Fresh batch](https://raw.githubusercontent.com/Usama01TN/QFunnyWidgets/main/docs/gallery3.png)
+![Daily drivers](https://raw.githubusercontent.com/Usama01TN/QFunnyWidgets/main/docs/gallery4.png)
+![Power tools](https://raw.githubusercontent.com/Usama01TN/QFunnyWidgets/main/docs/gallery5.png)
+![Finishing touches](https://raw.githubusercontent.com/Usama01TN/QFunnyWidgets/main/docs/gallery6.png)
+![Little details](https://raw.githubusercontent.com/Usama01TN/QFunnyWidgets/main/docs/gallery7.png)
+
+</details>
 
 ## Contents:
 
@@ -103,32 +136,32 @@ but animates like a cartoon. Pure Python: ManyQt + one Qt binding, nothing else.
 
 ## Installation:
 
-QFunnyWidgets needs [ManyQt](https://github.com/Usama01TN/ManyQt) and one Qt binding. From the project folder
-(the one containing `setup.py`):
+From [PyPI](https://pypi.org/project/QFunnyWidgets/), with the Qt binding of your choice:
 
 ```bash
-pip install .[pyqt5]          # library + a binding; or .[pyqt6], .[pyside6], .[pyside2]
-pip install .                 # library only, when a binding is already installed
-pip install -e .[pyqt5]       # editable install for development
+pip install QFunnyWidgets[pyqt5]      # or [pyqt6], [pyside6], [pyside2]
+pip install QFunnyWidgets             # library only, when a binding is already installed
+pip install --upgrade QFunnyWidgets   # update to the latest release
 ```
 
-To build distributable archives (a universal `py2.py3` wheel and a source archive):
+QFunnyWidgets depends on [ManyQt](https://github.com/Usama01TN/ManyQt), which pip installs automatically. Python 2.7
+installs the same way; `enum34` is pulled in there too (it backs the four widgets that use enums).
+
+From source (for development):
 
 ```bash
-pip wheel . --no-deps -w dist     # dist/QFunnyWidgets-1.0.0-py2.py3-none-any.whl
-python setup.py sdist             # dist/QFunnyWidgets-1.0.0.tar.gz
+git clone https://github.com/Usama01TN/QFunnyWidgets.git
+cd QFunnyWidgets
+pip install -e .[pyqt5]               # editable install
+python -m build                       # dist/qfunnywidgets-<version>-py2.py3-none-any.whl and .tar.gz
 ```
 
-Python 2.7 installs the same way; `enum34` is pulled in automatically there (it backs the four widgets that use
-enums). Installing also adds two commands:
+Installing also adds two commands:
 
 | Command                               | What it does                                                                 |
 |---------------------------------------|------------------------------------------------------------------------------|
 | `funnywidgets-mainwindow`             | Opens the seven-page gallery of all widgets.                                 |
 | `funnywidgets-designer [form.ui ...]` | Opens Qt Designer with the QFunnyWidgets plugins loaded (see *Qt Designer*). |
-
-Before publishing, fill in `author`, `url` and a `license` in `setup.py` (and add a `LICENSE` file); they are
-left empty on purpose.
 
 ## Run:
 
@@ -189,10 +222,10 @@ Notes:
 | **PyQt5** (ManyQt default) | All 35 demos, the 7-page gallery and interaction tests pass.                                                                                                                                   |
 | **PyQt6**                  | All 35 demos, the gallery and interaction tests pass.                                                                                                                                          |
 | **PySide6**                | Same results, but see *Known issue* below (a ManyQt bug, not a QFunnyWidgets one).                                                                                                             |
-| **Python 3**               | Developed and tested on 3.12.                                                                                                                                                                  |
+| **Python 3**               | Tested in CI on 3.9 and 3.12 with PyQt5 and PyQt6 on every release.                                                                                                                            |
 | **Python 2.7**             | Every file compiles with CPython 2.7.18; the sdist and the universal wheel install with Python 2.7's pip, and `enum34` (installed automatically) covers the four widgets with enums.           |
 | **PySide6 Designer**       | Tested in the real `pyside6-designer`: all 33 widgets register, from a checkout and from an installed wheel.                                                                                   |
-| **PyQt5 / PyQt6 Designer** | The plugin was exercised the way Designer's loader uses it (all 33 classes, icons, XML, include paths) on both bindings; a real PyQt Designer could not be run here (see *Qt Designer* notes). |
+| **PyQt5 / PyQt6 Designer** | The plugin is tested the way Designer's loader uses it (all 33 classes, icons, XML, include paths) on both bindings in CI; PyQt's Designer itself needs `pyqt5-tools` / `pyqt6-tools` (see *Qt Designer* notes). |
 
 How the code stays neutral:
 
@@ -211,7 +244,7 @@ ships a fix, use PyQt5 or PyQt6, or patch locally.
 
 ## Integration:
 
-1. `pip install .[pyqt5]` (see *Installation*), **or** copy the `QFunnyWidgets` package folder (or a single
+1. `pip install QFunnyWidgets[pyqt5]` (see *Installation*), **or** copy the `QFunnyWidgets` package folder (or a single
    widget folder such as `jellyswitch/`) into your project and `pip install ManyQt` plus a binding.
 2. Design forms in Qt Designer with the plugins (see *Qt Designer*), or create widgets in code.
 3. Import and use it like any other widget:
@@ -247,7 +280,7 @@ The logos are rendered from the real widgets by `makelogos.py`, which puts each 
 characteristic state, crops to the character and places it on a rounded-square tile. After changing a widget,
 regenerate them with `python QFunnyWidgets/makelogos.py` (optionally `python QFunnyWidgets/makelogos.py 512`).
 
-### Options at a glance:
+## Options at a glance:
 
 - **GooglyEyesWidget**: `eyeCount`, `eyeColor`, `pupilColor`, `lidColor`, `wobble` (0..1), `gravity`, `blinkInterval`,
   `autoBlink`; signals `poked(int)`, `gotAngry()`; slots `blink()`, `makeDizzy()`.
@@ -326,6 +359,23 @@ regenerate them with `python QFunnyWidgets/makelogos.py` (optionally `python QFu
 - **MoodSliderWidget**: `value`, `minimum`, `maximum`, `labels`, `showLabel`, `trackColor`; signals `valueChanged(int)`,
   `moodChanged(str)`. Mouse drag, wheel, arrows, PageUp/Down, Home/End.
 
+## Development:
+
+```bash
+QT_API=pyqt5 python tests/smoke.py     # every demo + the Designer plugins, headless
+```
+
+Releases are automated by `.github/workflows/release.yml`: bump `__version__` in `QFunnyWidgets/__init__.py`, then
+create a GitHub release with a matching tag (e.g. `v1.0.1`). The workflow tests, builds, publishes to PyPI and
+attaches the files to the release.
+
+## Links:
+
+- **PyPI:** [pypi.org/project/QFunnyWidgets](https://pypi.org/project/QFunnyWidgets/)
+- **Releases and changelog:** [GitHub Releases](https://github.com/Usama01TN/QFunnyWidgets/releases)
+- **Bug reports and ideas:** [GitHub Issues](https://github.com/Usama01TN/QFunnyWidgets/issues)
+- **ManyQt** (the binding layer): [github.com/Usama01TN/ManyQt](https://github.com/Usama01TN/ManyQt)
+
 ## Support:
 
 If QFunnyWidgets is useful to you, feel free to support its development:
@@ -335,11 +385,11 @@ If QFunnyWidgets is useful to you, feel free to support its development:
   <a href="https://ko-fi.com/usamatn"><img src="https://img.shields.io/badge/Ko--fi-Buy%20me%20a%20coffee-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Buy me a coffee on Ko-fi"></a>
 </p>
 
-- **ba9chich:** https://ba9chich.com/fr/IninouUsama
-- **Ko-fi:** https://ko-fi.com/usamatn
+- **ba9chich:** [ba9chich.com/fr/IninouUsama](https://ba9chich.com/fr/IninouUsama)
+- **Ko-fi:** [ko-fi.com/usamatn](https://ko-fi.com/usamatn)
 
 Thank you :)
 
 ## License:
 
-See [LICENSE.md](LICENSE.md).
+MIT, see [LICENSE.md](https://github.com/Usama01TN/QFunnyWidgets/blob/main/LICENSE.md).
