@@ -2,7 +2,6 @@
 
 [![PyPI](https://img.shields.io/pypi/v/QFunnyWidgets)](https://pypi.org/project/QFunnyWidgets/)
 [![Python](https://img.shields.io/pypi/pyversions/QFunnyWidgets)](https://pypi.org/project/QFunnyWidgets/)
-[![Downloads](https://img.shields.io/pypi/dm/QFunnyWidgets)](https://pypi.org/project/QFunnyWidgets/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](https://github.com/Usama01TN/QFunnyWidgets/blob/main/LICENSE.md)
 [![Release](https://github.com/Usama01TN/QFunnyWidgets/actions/workflows/release.yml/badge.svg)](https://github.com/Usama01TN/QFunnyWidgets/actions/workflows/release.yml)
 
