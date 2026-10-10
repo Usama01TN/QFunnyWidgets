@@ -181,17 +181,22 @@ jobs:
           name: dist
           path: dist/
 
-      - name: Create the release with the distributions attached
+      - name: Create the release (or update one made on the website) with the distributions attached
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          PRERELEASE=""
-          if [[ "$GITHUB_REF_NAME" =~ (a|b|rc|dev)[0-9]*$ ]]; then
-            PRERELEASE="--prerelease"
+          if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            # Release already created on github.com (Releases > Draft a new release): just attach the files.
+            gh release upload "$GITHUB_REF_NAME" dist/* --repo "$GITHUB_REPOSITORY" --clobber
+          else
+            PRERELEASE=""
+            if [[ "$GITHUB_REF_NAME" =~ (a|b|rc|dev)[0-9]*$ ]]; then
+              PRERELEASE="--prerelease"
+            fi
+            gh release create "$GITHUB_REF_NAME" dist/* \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "QFunnyWidgets ${GITHUB_REF_NAME#v}" \
+              --generate-notes \
+              --verify-tag \
+              $PRERELEASE
           fi
-          gh release create "$GITHUB_REF_NAME" dist/* \
-            --repo "$GITHUB_REPOSITORY" \
-            --title "QFunnyWidgets ${GITHUB_REF_NAME#v}" \
-            --generate-notes \
-            --verify-tag \
-            $PRERELEASE
