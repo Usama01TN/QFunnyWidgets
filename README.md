@@ -7,7 +7,7 @@
 
 **Definition.** A library of 35 custom-painted, animated Qt widgets with a sense of humour, written on top of
 [ManyQt](https://github.com/Usama01TN/ManyQt) so the same code runs on PyQt5, PyQt6, PySide6 (and the other
-bindings ManyQt supports), under Python 2.7 and Python 3.
+bindings ManyQt supports), under Python 2 and Python 3.
 
 **Goal.** Give serious applications a little personality: every widget is a drop-in, fully
 configurable `QWidget` that behaves like a normal control (signals, properties, keyboard support)
